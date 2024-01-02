@@ -34,6 +34,31 @@ public class ContactsRecyclerAdapter extends RecyclerView.Adapter<ContactsRecycl
         holder.name.setText(item.name);
         holder.status.setText(item.status);
         holder.profileImage.setImageResource(item.imageId);
+        if (onItemClickListener != null) {
+            holder.itemView.setOnClickListener(view -> {
+                onItemClickListener.onItemClick(position, item);
+            });
+        }
+        if (onImageClickListener != null) {
+            holder.profileImage.setOnClickListener(view -> {
+                onImageClickListener.onItemClick(position, item);
+            });
+        }
+    }
+
+    OnItemClickListener onImageClickListener;
+    OnItemClickListener onItemClickListener;
+
+    public void setOnImageClickListener(OnItemClickListener onImageClickListener) {
+        this.onImageClickListener = onImageClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int Position, Contact contact);
     }
 
     @Override

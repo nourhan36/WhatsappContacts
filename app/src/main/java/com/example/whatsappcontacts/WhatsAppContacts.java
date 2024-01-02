@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 public class WhatsAppContacts extends AppCompatActivity {
@@ -18,9 +20,19 @@ public class WhatsAppContacts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whats_app_contacts);
         rv = findViewById(R.id.rv_contacts);
+        initRecyclerView();
+
+    }
+
+    private void initRecyclerView() {
         createContactsList();
         adapter = new ContactsRecyclerAdapter(contactList);
         rv.setAdapter(adapter);
+        adapter.setOnItemClickListener((Position, contact) -> {
+            Intent intent = new Intent(this , Contact.class);
+            intent.putExtra("name" , contact.name);
+            startActivity(intent);
+        });
     }
 
     private void createContactsList() {
